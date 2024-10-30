@@ -12,24 +12,35 @@ os.system(cmd)
 
 #   Options
 
+field_grow_1 = bytes([176]).decode("cp437")
+field_grow_2 = bytes([177]).decode("cp437")
+field_grow_3 = bytes([178]).decode("cp437")
+
 width = 120
 height = 40
 
 #   Fields
 
 fields = [
+    Field(0, True),
     Field(1, False),
     Field(2, False),
     Field(3, False),
     Field(4, False),
     Field(5, False),
-    Field(6, False),
 ]
+fields[0].plots[0][1][1] = 1
+fields[0].plots[1][1][1] = 1
+
+print(fields[0].plots[0])
+
+
+
 
 #   Player Stats
 
 money = 1000
-ownedFields = [1, 2]
+ownedFields = [0,1]
 machines = [{"name":"combine", "lvl":1}]
 
 #   Code
@@ -80,54 +91,160 @@ def drive():
             else:
                 print(" ", end="")    
     print()
-    
+
+skip = 0
+
+
+def fieldDraw(x,y,fieldNr, posX, posY, field_draw_height):
+            if x == posX and y == posY:
+                for plots in fields[fieldNr].plots[field_draw_height]:
+                    skip = len(fields[fieldNr].plots[field_draw_height])
+                    if plots[1] == 0: 
+                        print(0, end="")
+                    else:
+                        print(2, end="")
+            
+            elif x == posX and y == posY+1:
+                for plots in fields[fieldNr].plots[field_draw_height]:
+                    skip = len(fields[fieldNr].plots[field_draw_height])
+                    if plots[1] == 0: 
+                        print(0, end="")
+                    else:
+                        print(2, end="")
+            
+            elif x == posX and y == posY+2:
+                for plots in fields[fieldNr].plots[field_draw_height]:
+                    skip = len(fields[fieldNr].plots[field_draw_height])
+                    if plots[1] == 0: 
+                        print(0, end="")
+                    else:
+                        print(2, end="")
+            
+                        
+            elif x == posX and y == posY+3:
+                for plots in fields[fieldNr].plots[field_draw_height]:
+                    skip = len(fields[fieldNr].plots[field_draw_height])
+                    if plots[1] == 0: 
+                        print(0, end="")
+                    else:
+                        print(2, end="")
+            
+            
+            elif x == posX and y == posY+4:
+                for plots in fields[fieldNr].plots[field_draw_height]:
+                    skip = len(fields[fieldNr].plots[field_draw_height])
+                    if plots[1] == 0: 
+                        print(0, end="")
+                    else:
+                        print(2, end="")
+            
+            
+            elif x == posX and y == posY+5:
+                for plots in fields[fieldNr].plots[field_draw_height]:
+                    skip = len(fields[fieldNr].plots[field_draw_height])
+                    if plots[1] == 0: 
+                        print(0, end="")
+                    else:
+                        print(2, end="")
+            
+                        
+            elif x == posX and y == posY+6:
+                for plots in fields[fieldNr].plots[field_draw_height]:
+                    skip = len(fields[fieldNr].plots[field_draw_height])
+                    if plots[1] == 0: 
+                        print(0, end="")
+                    else:
+                        print(2, end="")
+            
+                        
+            elif x == posX and y == posY+7:
+                for plots in fields[fieldNr].plots[field_draw_height]:
+                    skip = len(fields[fieldNr].plots[field_draw_height])
+                    if plots[1] == 0: 
+                        print(0, end="")
+                    else:
+                        print(2, end="")
+            
+            
+            elif x == posX and y == posY+8:
+                for plots in fields[fieldNr].plots[field_draw_height]:
+                    skip = len(fields[fieldNr].plots[field_draw_height])
+                    if plots[1] == 0: 
+                        print(0, end="")
+                    else:
+                        print(2, end="")
+            
+                        
+            elif x == posX and y == posY+9:
+                for plots in fields[fieldNr].plots[field_draw_height]:
+                    skip = len(fields[fieldNr].plots[field_draw_height])
+                    if plots[1] == 0: 
+                        print(0, end="")
+                    else:
+                        print(2, end="")
+            
+            
+            else:
+                skip = 0
+            
+            return skip
+            
+
+# ---Menu Texts
+texts = ["HELP", "FIELDS", "OPTIONS"]
+
+field_draw_height = -2
+
 
 
 
 #   Code
 
 for y in range(height):
+        field_draw_width = 0
+        
         for x in range(width):
+            if skip != 0:
+                skip -= 1
+                continue
             
-            # ---Menu Content
-            help = "help"
+            # ---Field Draw
+            returnFunc = fieldDraw(x,y,0,10,2,field_draw_height)
+            skip += returnFunc
+            
+            returnFunc = fieldDraw(x,y,1,30,2,field_draw_height)
+            skip += returnFunc
             
             
+            
+            
+            # ---Menu Draw
+            
+            if x == 12 and y == 38:
+                print(texts[0], end="")
+                skip = len(texts[0])-1
+                
+            elif (x == 10 or x == 21) and y in [38,36,34,32,30]:
+                print("|", end="") 
+                
             # ---Box Draw
-            if y == 0 or y == height - 1:
+            elif y == 0 or y == height - 1:
                 print("-", end="")
     
             elif x == 0 or x == width - 1:
                 print("|", end="")
 
-            # ---Menu Draw
             
-            
-            
-            elif x == 12 and y == 38:
-                print("H", end="")
-            elif x == 13 and y == 38:
-                print("E", end="")
-            elif x == 14 and y == 38:
-                print("L", end="")
-            elif x == 15 and y == 38:
-                print("P", end="")
-                
-            elif (x == 10 or x == 21) and y in [38,36,34,32,30]:
-                print("|", end="")    
+                    
             # ---Empty Draw
             else:
-                print(" ", end="")    
+                print(" ", end="")
+        field_draw_height += 1
 print()
 
-
-
-
-
-
-
-
-
+for y in fields[0].plots: 
+    for x in y:
+        pass
 
 
 
