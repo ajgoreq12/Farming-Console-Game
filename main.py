@@ -2,7 +2,6 @@ import random
 import time
 import os
 import keyboard
-import os
 
 from Field import Field
 
@@ -26,8 +25,7 @@ fields = [
     Field(1, False),
     Field(2, False),
     Field(3, False),
-    Field(4, False),
-    Field(5, False),
+    Field(4, False)
 ]
 fields[0].plots[0][1][1] = 1
 fields[0].plots[1][1][1] = 1
@@ -68,12 +66,12 @@ while goodOption:
         
 if difficulty == 1:
     money = 5000
-    ownedFields = [1, 2, 3]
+    ownedFields = [0, 1, 2]
     machines = [{"name":"combine", "lvl":2}]
 
 if difficulty == 3:
     money = 750
-    ownedFields = [1]
+    ownedFields = [0]
     machines = [{"name":"combine", "lvl":0}]
 
 for elem in ownedFields:
@@ -192,6 +190,7 @@ def fieldDraw(x,y,fieldNr, posX, posY, field_draw_height):
 
 # ---Menu Texts
 texts = ["HELP", "FIELDS", "OPTIONS"]
+fields_nr_text = ["Field nr"]
 
 field_draw_height = -2
 
@@ -209,11 +208,40 @@ for y in range(height):
                 continue
             
             # ---Field Draw
-            returnFunc = fieldDraw(x,y,0,10,2,field_draw_height)
-            skip += returnFunc
+            if 0 in ownedFields:
+                if x == 10 and y == 1:
+                    print("Field num: 1", end="")
+                    skip += len("Field num: 1")
+                returnFunc = fieldDraw(x,y,0,11,2,field_draw_height)
+                skip += returnFunc
             
-            returnFunc = fieldDraw(x,y,1,30,2,field_draw_height)
-            skip += returnFunc
+            if 1 in ownedFields:
+                if x == 31 and y == 1:
+                    print("Field num: 2", end="")
+                    skip += len("Field num: 2")
+                returnFunc = fieldDraw(x,y,1,32,2,field_draw_height)
+                skip += returnFunc
+            
+            if 2 in ownedFields:
+                if x == 52 and y == 1:
+                    print("Field num: 3", end="")
+                    skip += len("Field num: 3")
+                returnFunc = fieldDraw(x,y,2,53,2,field_draw_height)
+                skip += returnFunc
+            
+            if 3 in ownedFields:
+                if x == 73 and y == 1:
+                    print("Field num: 4", end="")
+                    skip += len("Field num: 4")
+                returnFunc = fieldDraw(x,y,3,74,2,field_draw_height)
+                skip += returnFunc
+            
+            if 4 in ownedFields:
+                if x == 94 and y == 1:
+                    print("Field num: 5", end="")
+                    skip += len("Field num: 5")
+                returnFunc = fieldDraw(x,y,4,95,2,field_draw_height)
+                skip += returnFunc
             
             
             
@@ -223,6 +251,9 @@ for y in range(height):
             if x == 12 and y == 38:
                 print(texts[0], end="")
                 skip = len(texts[0])-1
+            elif x == 20 and y == 38:
+                print("H", end="")
+                
                 
             elif (x == 10 or x == 21) and y in [38,36,34,32,30]:
                 print("|", end="") 
