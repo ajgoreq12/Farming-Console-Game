@@ -37,7 +37,7 @@ fields = [
     Field(4, False)
 ]
 #fields[0].plots[0][1][1] = 3
-#fields[0].plots[1][1][1] = 3
+fields[0].plots[2][1][1] = 1
 
 #print(fields[0].plots[0])
 
@@ -46,7 +46,7 @@ fields = [
 
 #   Player Stats
 
-money = 1000
+money = 1500
 ownedFields = [0,1]
 machines = [{"name":"combine", "lvl":1}]
 
@@ -74,7 +74,7 @@ while goodOption:
         goodOption = False
         
 if difficulty == 1:
-    money = 5000
+    money = 3000
     ownedFields = [0, 1, 2]
     machines = [{"name":"combine", "lvl":2}]
 
@@ -267,6 +267,10 @@ def fieldDraw(x,y,fieldNr, posX, posY, field_draw_height):
             return skip
             
 def mainMenu():
+    global currentSite
+    currentSite = "mainMenu"
+    
+    
     # ---Menu Texts
     texts = ["HELP", "FIELDS", "MACHINES", "SKIP", "ACTIONS", "BUY"]
     fields_nr_text = ["Field nr"]
@@ -407,6 +411,8 @@ def actionMenu():
     print()
     
 def skipMenu(monthsSkip):
+    global currentSite
+    currentSite = "skipMenu"
     
     skip = 0
     for y in range(height):
@@ -493,44 +499,57 @@ currentSite = "mainMenu"
 
 mainMenu()
 while inGame:
+    
+    # ---Main Menu
     while currentSite == "mainMenu":
         if keyboard.is_pressed('t'):
             os.system(cmd)
             buyMenu()
-            currentSite = "buyMenu"
+
             
         elif keyboard.is_pressed('r'):
             os.system(cmd)
             actionMenu()
-            currentSite = "actionMenu"
+
             
         elif keyboard.is_pressed('e'):
             os.system(cmd)
             skipMenu(monthsSkip)
-            currentSite = "skipMenu"
+
             
         elif keyboard.is_pressed('q'):
             os.system(cmd)
             machinesMenu()
-            currentSite = "machinesMenu"
+
 
         elif keyboard.is_pressed('h'):
             os.system(cmd)
             helpMenu()
-            currentSite = "helpMenu"
 
+        time.sleep(0.3)
+
+    # ---Skip Menu
     while currentSite =="skipMenu":
         if keyboard.is_pressed('esc'):
             os.system(cmd)
             mainMenu()
-            currentSite = "mainMenu"
+
         elif keyboard.is_pressed('e'):
             os.system(cmd)
             monthsSkip += 1
             skipMenu(monthsSkip)
+            
         elif keyboard.is_pressed('q'):
             if monthsSkip > 1:
                 os.system(cmd)
                 monthsSkip -= 1
                 skipMenu(monthsSkip)
+                
+        elif keyboard.is_pressed('enter'):
+                os.system(cmd)
+                mainMenu()
+                month =+ monthsSkip
+                
+        time.sleep(0.1)
+    
                 
